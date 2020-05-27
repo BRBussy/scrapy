@@ -1,4 +1,5 @@
 import scrapy
+from scrapy.selector import Selector
 
 
 class QuotesSpider(scrapy.Spider):
@@ -14,5 +15,12 @@ class QuotesSpider(scrapy.Spider):
             )
 
     def parse(self, response):
-        for product in response.xpath('//div[contains(@class, "product")]'):
-            print(product)
+        product_links = set()
+        print('__________')
+        for item in response.xpath('//div[@class="shop-container"]/div[contains(@class, "products")]/div'):
+            for link in Selector(text=item.extract()).xpath('//a/@href'):
+                link_text = link.extract()
+                if 'http' in link_text and 'product' in link_text:
+                    product_links.add(link.extract())
+        print(product_links)
+        print('__________')
