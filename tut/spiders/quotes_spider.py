@@ -22,5 +22,6 @@ class QuotesSpider(scrapy.Spider):
                 link_text = link.extract()
                 if 'http' in link_text and 'product' in link_text:
                     product_links.add(link.extract())
-        print(product_links)
+        for link in product_links:
+            print(link)
         print('__________')
