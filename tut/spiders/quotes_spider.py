@@ -31,4 +31,4 @@ class QuotesSpider(scrapy.Spider):
             )
 
     def process_product_page(self, response):
-        print('process page!')
+        print('process page!', response.url)
